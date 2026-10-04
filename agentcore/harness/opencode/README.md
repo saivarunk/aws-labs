@@ -121,7 +121,7 @@ The portal lifecycle uses a small AWS CLI adapter called by Terraform; the
 pinned AWS provider does not expose a native consent portal resource. More
 callback details are in the [OAuth guide](scripts/connect_github.md).
 
-![Screenshot placeholder: managed consent portal with GitHub connected](docs/screenshots/consent-portal.svg)
+![GitHub connected in the managed consent portal](docs/screenshots/consent-portal-github-authenticated.png)
 
 
 ## 4. Build and deploy the runtime
@@ -168,7 +168,7 @@ that ends without a confirmed PR reports `run_incomplete`.
 Pressing Ctrl+C in the invocation helper asks AgentCore to stop that runtime
 session. Each invocation gets a fresh workspace, HOME, and OpenCode state.
 
-![Screenshot placeholder: successful agent run and confirmed PR summary](docs/screenshots/demo-result.svg)
+[![Successful agent-generated PR and acceptance summary](docs/screenshots/github-pr-summary.png)](https://github.com/saivarunk/agentcore-claude-code-demo/pull/1)
 
 
 ## 6. View OpenCode logs in CloudWatch
@@ -194,8 +194,6 @@ fields @timestamp, event, run_id, mode, engine, opencode_type
 | sort @timestamp asc
 ```
 
-![Screenshot placeholder: runtime and OpenCode startup events](docs/screenshots/runtime-startup.svg)
-
 For readable model messages and command output, use:
 
 ```text
@@ -212,7 +210,7 @@ Long events are split into `event_id`, `chunk_index`, `chunk_count`, and
 Delivery can take a few minutes. Generate fresh logs with `model_probe` if a
 new log stream is empty.
 
-![Screenshot placeholder: OpenCode messages and tool output in CloudWatch](docs/screenshots/opencode-logs.svg)
+![OpenCode messages and tool output in CloudWatch](docs/screenshots/agentcore-runtime-logs.png)
 
 Logs redact known credential formats and structured credential fields, but they
 include specifications and generated code. Separate service metadata/usage
