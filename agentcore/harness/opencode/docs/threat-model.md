@@ -47,7 +47,7 @@ State and saved plans contain plaintext OAuth secrets. Gitignore prevents
 accidental addition, not access to files already tracked or stored elsewhere.
 No remote encrypted backend, high availability, or production hardening is
 included. Agent logs include specifications and generated source even after
-credential redaction; review screenshots before publishing them.
+credential redaction; restrict access to those logs.
 
 ## What has been checked
 

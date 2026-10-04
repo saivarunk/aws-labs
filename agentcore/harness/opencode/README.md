@@ -96,7 +96,7 @@ The harness enforces the configured target repository, but GitHub OAuth does
 not restrict this grant to that one repository.
 
 **Terraform state and saved plans contain OAuth secrets.** Keep them private;
-never upload them or include them in screenshots. The root `.gitignore` excludes
+never upload them. The root `.gitignore` excludes
 state, plans, local tfvars, token files, and build artifacts.
 
 ## 3. Enable the portal and connect GitHub
@@ -123,8 +123,6 @@ callback details are in the [OAuth guide](scripts/connect_github.md).
 
 ![Screenshot placeholder: managed consent portal with GitHub connected](docs/screenshots/consent-portal.svg)
 
-*Replace this placeholder with the connected provider and target view. Crop out
-browser query strings, account identifiers, and unrelated connections.*
 
 ## 4. Build and deploy the runtime
 
@@ -172,8 +170,6 @@ session. Each invocation gets a fresh workspace, HOME, and OpenCode state.
 
 ![Screenshot placeholder: successful agent run and confirmed PR summary](docs/screenshots/demo-result.svg)
 
-*Replace with a successful summary and PR link. Do not show token files or
-unredacted authorization URLs.*
 
 ## 6. View OpenCode logs in CloudWatch
 
@@ -189,8 +185,8 @@ For full agent output, select this log group in us-east-1:
 ```
 
 OpenCode runs with `--format json`, so the interactive welcome banner is absent.
-For a startup screenshot, use the harness `server_started` and
-`invocation_started` records, plus the first `step_start` event. In Logs Insights:
+Startup is recorded through `server_started`, `invocation_started`, and
+`step_start` events. To inspect lifecycle events in Logs Insights:
 
 ```text
 fields @timestamp, event, run_id, mode, engine, opencode_type
@@ -219,11 +215,10 @@ new log stream is empty.
 ![Screenshot placeholder: OpenCode messages and tool output in CloudWatch](docs/screenshots/opencode-logs.svg)
 
 Logs redact known credential formats and structured credential fields, but they
-include specifications and generated code. Review every screenshot locally
-before publishing it. Separate service metadata/usage groups live under
+include specifications and generated code. Separate service metadata/usage
+groups live under
 `/aws/vendedlogs/bedrock-agentcore/runtime/`; Gateway diagnostics live under
 `/aws/vendedlogs/bedrock-agentcore/gateway/`. These are not the full CLI log stream.
-See the [screenshot checklist](docs/screenshots/README.md).
 
 ## Code organization
 
