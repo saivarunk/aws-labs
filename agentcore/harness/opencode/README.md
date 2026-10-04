@@ -11,20 +11,10 @@ application goes into a separate GitHub repository.
 
 ## How it works
 
-```mermaid
-flowchart LR
-    User[User] --> Cognito[Cognito sign-in]
-    User --> Portal[Managed consent portal]
-    Portal --> Identity[AgentCore Identity]
-    Cognito --> Runtime[Private AgentCore Runtime]
-    Runtime --> OpenCode[OpenCode]
-    OpenCode --> Proxy[Local MCP policy proxy]
-    Proxy --> Gateway[AgentCore Gateway]
-    Gateway --> Identity
-    Gateway --> GitHub[GitHub hosted MCP]
-    OpenCode --> Bedrock[Bedrock Runtime]
-    Runtime --> Logs[CloudWatch logs]
-```
+[![OpenCode harness architecture](docs/architecture.png)](docs/architecture.svg)
+
+See [architecture details](docs/architecture.md) for request flows, trust boundaries,
+and links to the implementation.
 
 The runtime has no NAT gateway or Internet default route. It reaches Bedrock,
 Gateway, ECR, S3, and CloudWatch through VPC endpoints. Gateway calls the hosted

@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1560" viewBox="0 0 1600 1560" role="img" aria-labelledby="title desc">
+<title id="title">OpenCode coding harness on Amazon Bedrock AgentCore</title>
+<desc id="desc">Cognito and the managed consent portal bind each user to GitHub OAuth in AgentCore Identity. A private AgentCore Runtime runs OpenCode with a parent-held caller JWT, local MCP proxy and independent publishing gates. It uses private endpoints for Kimi K3 Bedrock inference, Gateway tools, image pulls and logs. Gateway uses the user-bound GitHub token to create one commit and a confirmed pull request. CodeBuild builds the immutable image outside the runtime VPC. US inference may cross regions.</desc>
+<defs>
+<marker id="data" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2563eb"/></marker>
+<marker id="auth" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#7c3aed"/></marker>
+<marker id="log" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#0f766e"/></marker>
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#172033}.secondary{fill:#475569}.mono{font-family:monospace}</style>
+</defs>
+<rect width="1600" height="1560" fill="#ffffff"/>
+<text x="40" y="54" font-size="34" font-weight="700">OpenCode on Amazon Bedrock AgentCore</text>
+<text x="40" y="88" font-size="21" class="secondary">Private execution · Kimi K3 US inference · managed GitHub consent · complete agent logs</text>
+<rect x="40" y="125" width="1520" height="268" rx="12" fill="#faf8ff" stroke="#ddd6fe" stroke-width="1.5"/>
+<text x="60" y="156" font-size="22" font-weight="700">A. Connect GitHub once for each Cognito user</text>
+<rect x="60" y="182" width="310" height="165" rx="12" fill="#fff" stroke="#c4b5fd" stroke-width="1.5"/>
+<text x="80" y="214" font-size="22" font-weight="700">Cognito sign-in</text>
+<text x="80" y="246" font-size="18" class="secondary">agent-app: CLI with PKCE</text>
+<text x="80" y="271" font-size="18" class="secondary">consent-portal: portal login</text>
+<text x="80" y="296" font-size="18" class="secondary">rogue-app: negative tests only</text>
+<rect x="420" y="182" width="300" height="165" rx="12" fill="#fff" stroke="#c4b5fd" stroke-width="1.5"/>
+<text x="440" y="214" font-size="21" font-weight="700">Managed consent portal</text>
+<text x="440" y="246" font-size="16" class="secondary">Cognito login: /callback</text>
+<text x="440" y="271" font-size="16" class="secondary">GitHub return: /connect/callback</text>
+<text x="440" y="296" font-size="16" class="secondary">Sign in, then connect GitHub</text>
+<rect x="770" y="182" width="310" height="165" rx="12" fill="#fff" stroke="#c4b5fd" stroke-width="1.5"/>
+<text x="790" y="214" font-size="22" font-weight="700">GitHub OAuth approval</text>
+<text x="790" y="246" font-size="17" class="secondary">OAuth App · repo scope</text>
+<text x="790" y="271" font-size="17" class="secondary">Includes private-repo access</text>
+<text x="790" y="296" font-size="17" class="secondary">AWS-generated Identity callback</text>
+<rect x="1130" y="182" width="410" height="165" rx="12" fill="#fff" stroke="#c4b5fd" stroke-width="1.5"/>
+<text x="1150" y="214" font-size="22" font-weight="700">AgentCore Identity</text>
+<text x="1150" y="246" font-size="18" class="secondary">OAuth providers + token vault</text>
+<text x="1150" y="271" font-size="18" class="secondary">GitHub grant bound to Cognito user</text>
+<text x="1150" y="296" font-size="18" class="secondary">Client secrets stay outside runtime</text>
+<path d="M370 259 H420" fill="none" stroke="#7c3aed" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#auth)"/>
+<path d="M720 259 H770" fill="none" stroke="#7c3aed" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#auth)"/>
+<path d="M1080 259 H1130" fill="none" stroke="#7c3aed" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#auth)"/>
+<path d="M1335 347 V374 H570 V347" fill="none" stroke="#7c3aed" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#auth)" stroke-dasharray="6 5"/>
+<text x="756" y="368" font-size="16" class="secondary">Return completes user-session binding</text>
+<rect x="40" y="416" width="1520" height="744" rx="12" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+<text x="60" y="449" font-size="22" font-weight="700">B. Coding run: user JWT in the parent; GitHub token in Identity / Gateway</text>
+<rect x="60" y="490" width="240" height="176" rx="12" fill="#fff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="80" y="522" font-size="23" font-weight="700">Local CLI</text>
+<text x="80" y="554" font-size="17" class="secondary">login → access token</text>
+<text x="80" y="579" font-size="17" class="secondary">invoke → JWT + session ID</text>
+<text x="80" y="604" font-size="17" class="secondary">SSE progress + result</text>
+<rect x="340" y="474" width="770" height="660" rx="12" fill="#eff6ff" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="8 6"/>
+<text x="360" y="505" font-size="21" font-weight="700">Private VPC · 2 AZs · no NAT or Internet default route</text>
+<rect x="360" y="528" width="730" height="420" rx="12" fill="#fff" stroke="#93c5fd" stroke-width="1.5"/>
+<text x="380" y="557" font-size="20" font-weight="700">AgentCore Runtime · Cognito JWT authorizer: agent-app only</text>
+<rect x="380" y="583" width="255" height="118" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="400" y="615" font-size="22" font-weight="700">HTTP harness</text>
+<text x="400" y="647" font-size="17" class="secondary">Caller JWT held in parent</text>
+<text x="400" y="672" font-size="17" class="secondary">/invocations + /ping</text>
+<rect x="690" y="583" width="370" height="118" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="710" y="615" font-size="24" font-weight="700">OpenCode 2.0.22</text>
+<text x="710" y="647" font-size="18" class="secondary">Headless JSON · task permissions</text>
+<text x="710" y="672" font-size="18" class="secondary">180 model steps · 45 minutes</text>
+<text x="710" y="697" font-size="18" class="secondary">Go 1.27.1 · standard-library task</text>
+<rect x="690" y="761" width="370" height="153" rx="12" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+<text x="710" y="793" font-size="22" font-weight="700">Local MCP proxy + gates</text>
+<text x="710" y="825" font-size="17" class="secondary">Exact repository + session branch</text>
+<text x="710" y="850" font-size="17" class="secondary">Format / vet / race / ≥80% coverage</text>
+<text x="710" y="875" font-size="17" class="secondary">Pushed files match verified workspace</text>
+<text x="710" y="900" font-size="17" class="secondary">PR only after a confirmed push</text>
+<rect x="380" y="827" width="255" height="73" rx="12" fill="#fffbeb" stroke="#fcd34d" stroke-width="1.5"/>
+<text x="400" y="859" font-size="20" font-weight="700">Trusted TaskDefinition</text>
+<text x="400" y="891" font-size="16" class="secondary">Spec + permissions + gates</text>
+<path d="M300 620 H380" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#data)"/>
+<text x="315" y="608" font-size="15" class="secondary">JWT</text>
+<path d="M635 637 H690" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#data)"/>
+<text x="641" y="625" font-size="14" class="secondary">start</text>
+<path d="M875 701 V761" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#data)"/>
+<text x="888" y="735" font-size="16" class="secondary">MCP tools</text>
+<path d="M575 701 V791 H690" fill="none" stroke="#7c3aed" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#auth)" stroke-dasharray="6 5"/>
+<text x="395" y="739" font-size="17" class="secondary">Caller JWT stays</text>
+<text x="395" y="762" font-size="17" class="secondary">in parent memory</text>
+<path d="M635 867 H690" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#data)"/>
+<text x="642" y="855" font-size="14" class="secondary">rules</text>
+<text x="380" y="929" font-size="17" class="secondary">Temporary workspace / HOME / config · bounded process output · process-tree cleanup</text>
+<rect x="360" y="982" width="730" height="132" rx="12" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.5"/>
+<text x="380" y="1014" font-size="21" font-weight="700">Private endpoints + scoped execution role</text>
+<text x="380" y="1046" font-size="18" class="secondary">Interfaces: Bedrock Runtime · Gateway · ECR API / DKR · Logs</text>
+<text x="380" y="1071" font-size="18" class="secondary">S3 gateway endpoint: ECR layer downloads</text>
+<text x="380" y="1096" font-size="18" class="secondary">HTTPS egress only; model / Gateway resources constrained by policy</text>
+<text x="1160" y="484" font-size="19" font-weight="700">Managed AWS services</text>
+<rect x="1160" y="507" width="380" height="160" rx="12" fill="#fff7ed" stroke="#fdba74" stroke-width="1.5"/>
+<text x="1180" y="539" font-size="23" font-weight="700">Bedrock Runtime · Kimi K3</text>
+<text x="1180" y="571" font-size="17" class="secondary">us.moonshotai.kimi-k3</text>
+<text x="1180" y="596" font-size="17" class="secondary">PrivateLink · SigV4 with runtime role</text>
+<text x="1180" y="621" font-size="17" class="secondary">US inference: east-1, east-2, west-2</text>
+<text x="1180" y="646" font-size="17" class="secondary">Uses the system inference profile</text>
+<path d="M1060 625 H1160" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#data)"/>
+<text x="1118" y="613" font-size="14" class="secondary">model</text>
+<rect x="1160" y="729" width="380" height="176" rx="12" fill="#faf5ff" stroke="#d8b4fe" stroke-width="1.5"/>
+<text x="1180" y="761" font-size="22" font-weight="700">AgentCore Gateway · MCP</text>
+<text x="1180" y="793" font-size="17" class="secondary">JWT: agent-app + consent-portal</text>
+<text x="1180" y="818" font-size="17" class="secondary">Five supplied tool schemas</text>
+<text x="1180" y="843" font-size="17" class="secondary">No separate admin discovery consent</text>
+<text x="1180" y="868" font-size="17" class="secondary">OAuth authorization-code target</text>
+<text x="1180" y="893" font-size="17" class="secondary">Owner / repo headers forwarded</text>
+<path d="M1060 824 H1160" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#data)"/>
+<text x="1084" y="812" font-size="14" class="secondary">MCP + JWT</text>
+<path d="M1540 801 H1574 V401 H1500 V347" fill="none" stroke="#7c3aed" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#auth)" stroke-dasharray="6 5"/>
+<text x="1589" y="663" transform="rotate(-90 1589 663)" font-size="15" class="secondary">Get user-bound OAuth token</text>
+<rect x="1160" y="962" width="380" height="153" rx="12" fill="#f0fdfa" stroke="#5eead4" stroke-width="1.5"/>
+<text x="1180" y="994" font-size="24" font-weight="700">CloudWatch</text>
+<text x="1180" y="1026" font-size="16" class="secondary">Full redacted OpenCode JSON events</text>
+<text x="1180" y="1051" font-size="16" class="secondary">Model text · tool input · command output</text>
+<text x="1180" y="1076" font-size="16" class="secondary">Large events: lossless chunks</text>
+<text x="1180" y="1101" font-size="16" class="secondary">Separate metadata / usage delivery</text>
+<path d="M1090 918 H1132 V1042 H1160" fill="none" stroke="#0f766e" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#log)"/>
+<text x="1104" y="954" font-size="14" class="secondary">logs</text>
+<path d="M1350 905 V962" fill="none" stroke="#0f766e" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#log)" stroke-dasharray="6 5"/>
+<text x="1362" y="936" font-size="14" class="secondary">Gateway diagnostics</text>
+<rect x="710" y="1195" width="360" height="162" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="730" y="1227" font-size="21" font-weight="700">Configured target repository</text>
+<text x="730" y="1259" font-size="17" class="secondary">Separate generated Go application</text>
+<text x="730" y="1284" font-size="17" class="secondary">harness/kvd-* branch</text>
+<text x="730" y="1309" font-size="17" class="secondary">One multi-file commit + pull request</text>
+<text x="730" y="1334" font-size="17" class="secondary">Completion needs confirmed PR URL</text>
+<rect x="1160" y="1195" width="380" height="162" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="1180" y="1227" font-size="24" font-weight="700">Hosted GitHub MCP</text>
+<text x="1180" y="1259" font-size="17" class="secondary">api.githubcopilot.com/mcp/</text>
+<text x="1180" y="1284" font-size="17" class="secondary">Gateway uses the user OAuth grant</text>
+<text x="1180" y="1309" font-size="17" class="secondary">GitHub executes approved tools</text>
+<text x="1180" y="1334" font-size="17" class="secondary">GitHub-hosted, outside the VPC</text>
+<path d="M1540 869 H1552 V1175 H1350 V1195" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#data)"/>
+<text x="1302" y="1171" font-size="16" class="secondary">Delegated tools</text>
+<path d="M1160 1272 H1070" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#data)"/>
+<text x="1094" y="1260" font-size="14" class="secondary">publish</text>
+<rect x="60" y="1195" width="580" height="162" rx="12" fill="#fffbeb" stroke="#fcd34d" stroke-width="1.5"/>
+<text x="80" y="1227" font-size="20" font-weight="700">C. ARM64 build path (outside the runtime VPC)</text>
+<rect x="80" y="1243" width="155" height="77" rx="12" fill="#fff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="100" y="1275" font-size="20" font-weight="700">S3 source</text>
+<text x="100" y="1307" font-size="15" class="secondary">Allowlisted ZIP</text>
+<rect x="270" y="1243" width="175" height="77" rx="12" fill="#fff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="290" y="1275" font-size="20" font-weight="700">CodeBuild</text>
+<text x="290" y="1307" font-size="15" class="secondary">ARM64 container</text>
+<rect x="480" y="1243" width="140" height="77" rx="12" fill="#fff" stroke="#cbd5e1" stroke-width="1.5"/>
+<text x="500" y="1275" font-size="20" font-weight="700">ECR</text>
+<text x="500" y="1307" font-size="15" class="secondary">Digest URI</text>
+<path d="M235 1284 H270" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#data)"/>
+<path d="M445 1284 H480" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#data)"/>
+<text x="80" y="1343" font-size="16" class="secondary">Offline image import checks · immutable image tags · scan on push</text>
+<path d="M620 1283 H670 V1114" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#data)"/>
+<text x="464" y="1171" font-size="16" class="secondary">Private ECR / S3 image pull</text>
+<rect x="40" y="1390" width="1520" height="133" rx="12" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+<text x="60" y="1423" font-size="22" font-weight="700">Deployment and security boundaries</text>
+<text x="60" y="1454" font-size="19" class="secondary">Terraform owns infrastructure; its CLI adapter manages the consent portal and Cognito callbacks.</text>
+<text x="60" y="1483" font-size="18" class="secondary">Local state / plans contain secrets and stay private. Generated Go tests use the runtime role; this is not a hostile-code sandbox.</text>
+<path d="M1120 1541 H1155" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#data)"/>
+<text x="1167" y="1547" font-size="16" class="secondary">Execution</text>
+<path d="M1280 1541 H1315" fill="none" stroke="#7c3aed" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#auth)" stroke-dasharray="6 5"/>
+<text x="1327" y="1547" font-size="16" class="secondary">Consent / token</text>
+<text x="40" y="1547" font-size="17" class="secondary">Client region: us-east-1. US model routing may cross regions.</text>
+</svg>
