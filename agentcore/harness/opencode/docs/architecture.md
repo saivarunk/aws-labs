@@ -89,3 +89,5 @@ deployment/destroy lifecycle still need broader verification. See the
 | VPC endpoints and model resources | [network.tf](../terraform/network.tf), [bedrock.tf](../terraform/bedrock.tf) |
 | Consent and tool credentials | [consent_portal.tf](../terraform/consent_portal.tf), [cognito.tf](../terraform/cognito.tf), [identity.tf](../terraform/identity.tf), [gateway.tf](../terraform/gateway.tf) |
 | Build, runtime, and logs | [ecr_codebuild.tf](../terraform/ecr_codebuild.tf), [runtime.tf](../terraform/runtime.tf), [logs.tf](../terraform/logs.tf) |
+
+The diagram uses official [AWS Architecture Icons](https://aws.amazon.com/architecture/icons/). The AgentCore service icon represents its labeled components. See [icon attribution](icons/README.md) for the source assets and usage notes.
