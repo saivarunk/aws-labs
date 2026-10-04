@@ -1,0 +1,3 @@
+# Per-run evidence may include task contents and deployed resource identifiers.
+docs/evidence/
+/workspace/

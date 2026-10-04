@@ -1,0 +1,23 @@
+# Copy to terraform.tfvars (gitignored) and replace each placeholder.
+# Enable each stage using the setup steps in ../README.md.
+aws_region             = "us-east-1"
+name_prefix            = "agentcore-harness"
+# Replace with "YOUR_GITHUB_USERNAME/kvstore-demo" before enabling the Runtime.
+target_repo            = null
+enable_nat             = false
+enable_github_identity = false
+enable_managed_portal  = false
+enable_github_target   = false
+github_oauth_scopes    = ["repo"]
+
+# Supply GitHub client values with TF_VAR_* locally, never in this file.
+
+# Stage build/private networking first. Runtime is created only after CodeBuild
+# returns an immutable image digest URI. No NAT fallback is implemented.
+enable_harness    = false
+runtime_image_uri = null
+manage_runtime_logs = false
+
+opencode_model_id        = "us.moonshotai.kimi-k3"
+harness_timeout_seconds = 2700
+harness_max_steps       = 180
